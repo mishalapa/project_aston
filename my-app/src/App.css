@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: antiquewhite;
+}
+.header {
+    height: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #000000;
+}
+.btn1 {
+    margin-right: 25px;
+}
+.logo {
+    display: flex;
+    
+}
+.logo__photo, .logo__text {
+    margin-left: 25px;
+}
+.logo__text {
+    font-size: 30px;
+    line-height: 48px;
+}
+.logo__photo {
+    height: 50px;
+    width: 50px;
+}
+.form__reg {
+    width: 500px;
+}
+.form__reg {
+    width: 500px;
+    transform: translate(100%, 30%);
+    height: 600px;
+}
+.login-form {
+    width: 500px;
+    transform: translate(100%, 30%);
+    height: 600px;
+}
+.link {
+    margin-right: 25px;
+    font-size: 20px;
+    color: #000000;
+    font-weight: 500;
+}
