@@ -21,6 +21,7 @@
 }
 .logo {
     display: flex;
+    color: #000000;
     
 }
 .logo__photo, .logo__text {
@@ -49,6 +50,22 @@
 }
 .link {
     margin-right: 25px;
+    font-size: 20px;
+    color: #000000;
+    font-weight: 500;
+}
+.user {
+    margin-left: 224px;
+    margin-top: -19px;
+    margin-bottom: -3px;
+    font-size: 19px;
+    font-weight: 600;
+}
+.exit {
+    margin-right: 100px;
+}
+.button__regist{
+    margin-right: 50px;
     font-size: 20px;
     color: #000000;
     font-weight: 500;

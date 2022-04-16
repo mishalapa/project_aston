@@ -2,16 +2,14 @@ import React from 'react'
 import { Form, Input, Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { loginAction } from '../app/registrationReducer'
+import { registrAction } from '../app/toolkitSlice'
 
 const Registration = () => {
 	const dispatch = useDispatch()
-	// const isRegistr = useSelector((state) => state.isRegistr.isRegistr)
 	let navigate = useNavigate()
 	const onFinish = (values) => {
-		console.log(values)
-		localStorage.setItem(values.username, JSON.stringify(values.password))
-		dispatch(loginAction(values))
+		localStorage.setItem(values.username, JSON.stringify(values))
+		dispatch(registrAction(values))
 		navigate('/')
 	}
 
@@ -30,19 +28,11 @@ const Registration = () => {
 				autoComplete='off'
 				className='form__reg'
 			>
-				<Form.Item
-					label='Username'
-					name='username'
-					rules={[{ required: true, message: 'Please input your username!' }]}
-				>
+				<Form.Item label='Username' name='username' rules={[{ required: true, message: 'Please input your username!' }]}>
 					<Input />
 				</Form.Item>
 
-				<Form.Item
-					label='Password'
-					name='password'
-					rules={[{ required: true, message: 'Please input your password!' }]}
-				>
+				<Form.Item label='Password' name='password' rules={[{ required: true, message: 'Please input your password!' }]}>
 					<Input.Password />
 				</Form.Item>
 
