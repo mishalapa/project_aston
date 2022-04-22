@@ -1,10 +1,13 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import toolkitSlice from './toolkitSlice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
+import { moviesReducer } from './moviesSlice'
+import loginSlice from './loginSlice'
+
 const rootReducer = combineReducers({
-	toolkit: toolkitSlice,
+	login: loginSlice,
+	movies: moviesReducer,
 })
 
 const persistConfig = {

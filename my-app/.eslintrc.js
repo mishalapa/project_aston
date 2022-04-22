@@ -19,4 +19,8 @@ module.exports = {
 		semi: ['error', 'never'],
 		'react/react-in-jsx-scope': 0,
 	},
+	// 'import/order': [
+	// 	'error',
+	// 	{ groups: ['index', 'sibling', 'parent', 'internal', 'external', 'builtin', 'object', 'type'] },
+	// ],
 }

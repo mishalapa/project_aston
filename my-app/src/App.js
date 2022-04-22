@@ -1,15 +1,14 @@
-import React from 'react'
-import './App.css'
 import 'antd/dist/antd.css'
-import Header from './components/Header'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Registration from './components/Registration'
-import Login from './components/Login'
+import React from 'react'
 import { Provider } from 'react-redux'
-import store, { persistor } from './app/store'
-import Favorites from './components/Favorites'
-import History from './components/History'
+import store, { persistor } from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+import './App.css'
+import { Favorites, History, Registration, Header, Login } from './components/Header'
+import { Main, MovieItem } from './components/Main'
+import { Search, SearchNow } from './components/Search'
 
 function App() {
 	return (
@@ -18,6 +17,11 @@ function App() {
 				<BrowserRouter>
 					<Header />
 					<Routes>
+						<Route path='/' element={<Main />}></Route>
+						<Route path='/search' element={<SearchNow />}></Route>
+						<Route path='/search/:id' element={<Search />}></Route>
+						<Route path='/movies' element={<MovieItem />}></Route>
+						<Route path='/movies/:simkl_id' element={<MovieItem />}></Route>
 						<Route path='/login' element={<Login />}></Route>
 						<Route path='/registration' element={<Registration />}></Route>
 						<Route path='/favorites' element={<Favorites />}></Route>

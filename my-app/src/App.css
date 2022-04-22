@@ -43,7 +43,7 @@
     transform: translate(100%, 30%);
     height: 600px;
 }
-.login-form {
+.login__form {
     width: 500px;
     transform: translate(100%, 30%);
     height: 600px;
@@ -70,3 +70,4 @@
     color: #000000;
     font-weight: 500;
 }
+

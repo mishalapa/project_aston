@@ -1,20 +1,25 @@
-import React from 'react'
-import logo from '../image/video.png'
 import { Button } from 'antd'
-import { Link, useNavigate } from 'react-router-dom'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { unregistrAction } from '../app/toolkitSlice'
+import { Link, useNavigate } from 'react-router-dom'
 
-const Header = () => {
+import logo from '../../image/video.png'
+import { logoutAction } from '../../redux'
+
+export const Header = () => {
 	const navigate = useNavigate()
-	const isRegistr = useSelector((state) => state.toolkit.isRegistr)
-	const isLogin = useSelector((state) => state.toolkit.isLogin)
-	const user = useSelector((state) => state.toolkit.user)
+	const isLogin = useSelector((state) => state.login.isLogin)
+	const user = useSelector((state) => state.login.user)
 	const dispatch = useDispatch()
+
 	function exitUser() {
-		dispatch(unregistrAction(null))
+		dispatch(logoutAction())
 		navigate('/')
 	}
+	function toFavorites() {
+		navigate('/favorites')
+	}
+
 	return (
 		<header className='container'>
 			<div className='header'>
@@ -24,11 +29,11 @@ const Header = () => {
 				</Link>
 
 				<div>
-					{isRegistr || isLogin ? (
+					{isLogin ? (
 						<>
 							<p className='user'>user:{user.payload.username}</p>
 							<Link to='/favorites' className='button__regist'>
-								<Button>Favorites</Button>
+								<Button onClick={toFavorites}>Favorites</Button>
 							</Link>
 							<Link to='/history' className='button__regist'>
 								<Button>History</Button>
@@ -52,5 +57,3 @@ const Header = () => {
 		</header>
 	)
 }
-
-export default Header

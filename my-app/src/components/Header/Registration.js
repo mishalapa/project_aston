@@ -1,20 +1,18 @@
-import React from 'react'
 import { Form, Input, Button } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { registrAction } from '../app/toolkitSlice'
+import { useNavigate } from 'react-router-dom'
 
-const Registration = () => {
+import { loginAction } from '../../redux'
+
+export const Registration = () => {
 	const dispatch = useDispatch()
-	let navigate = useNavigate()
-	const onFinish = (values) => {
-		localStorage.setItem(values.username, JSON.stringify(values))
-		dispatch(registrAction(values))
-		navigate('/')
-	}
+	const navigate = useNavigate()
 
-	const onFinishFailed = (errorInfo) => {
-		console.log('Failed:', errorInfo)
+	const onSubmit = (identification) => {
+		localStorage.setItem(identification.username, JSON.stringify(identification))
+		dispatch(loginAction(identification))
+		navigate('/')
 	}
 
 	return (
@@ -23,8 +21,7 @@ const Registration = () => {
 				name='basic'
 				labelCol={{ span: 8 }}
 				wrapperCol={{ span: 16 }}
-				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
+				onFinish={onSubmit}
 				autoComplete='off'
 				className='form__reg'
 			>
@@ -45,5 +42,3 @@ const Registration = () => {
 		</div>
 	)
 }
-
-export default Registration
