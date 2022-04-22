@@ -1,0 +1,32 @@
+.movie__card {
+  max-width: 800px;
+  height: 73vh;
+  left: 50%;
+  transform: translate(-50%, 9%);
+  display: flex;
+}
+.movie__poster {
+  border: 1px solid #000000;
+  margin: 5px;
+  width: auto;
+  max-width: 342px;
+}
+.movie__overview .ant-card-meta-detail .ant-card-meta-title {
+  max-width: 433px;
+  height: 225px;
+}
+.movie__favorites .favorites__icon {
+  width: 100px;
+}
+.movie__card .favorites__icon {
+  width: 100px;
+  transform: translate(24vh, 0%);
+}
+.favorites__icon:hover * {
+  fill: #ff0000;
+  background-color: #000000;
+}
+.card__image {
+  height: 215px;
+}
+
