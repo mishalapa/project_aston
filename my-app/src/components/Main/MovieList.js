@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { ReactComponent as Logo } from '../../image/heard3.svg'
-import { addFavorites } from '../../redux'
+import { toggleFavourite } from '../../redux/moviesSlice'
 
 const { Meta } = Card
 
@@ -17,9 +17,9 @@ export const MovieList = (movie) => {
 		navigate(`/movies/${movie.movie.ids.simkl_id}`)
 	}
 
-	function toogleFavorites() {
-		console.log(movie.movie)
-		dispatch(addFavorites(movie.movie))
+	function toogle() {
+		console.log(movie.movie.ids.simkl_id)
+		dispatch(toggleFavourite(movie.movie.ids.simkl_id))
 	}
 
 	return (
@@ -28,7 +28,7 @@ export const MovieList = (movie) => {
 				<Meta style={{ fontSize: '16px', textAlign: 'center' }} title={movie.movie.title} description={movie.movie.year} />
 				<div className='movie__favorites'>
 					<Button onClick={openFilm}>Подробнее</Button>
-					<Logo className='favorites__icon' height={'10px'} onClick={toogleFavorites} />
+					<Logo className='favorites__icon' height={'10px'} onClick={toogle} />
 				</div>
 			</Card>
 		</div>

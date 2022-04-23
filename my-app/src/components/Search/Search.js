@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { addHistory, fetchMovies } from '../../redux'
-import './Search.css'
+import './search.css'
 import { MovieList } from '../Main'
 
 export const Search = () => {

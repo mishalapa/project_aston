@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { addHistory, fetchMovies } from '../../redux'
 
-import './Search.css'
+import './search.css'
 
 export const SearchNow = () => {
 	const [value, setValue] = useState('')

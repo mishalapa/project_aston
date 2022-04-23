@@ -5,14 +5,20 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import logo from '../../image/video.png'
 import { logoutAction } from '../../redux'
+import { removeHistory } from '../../redux/moviesSlice'
 
 export const Header = () => {
 	const navigate = useNavigate()
 	const isLogin = useSelector((state) => state.login.isLogin)
 	const user = useSelector((state) => state.login.user)
+	const history = useSelector((state) => state.movies.history)
 	const dispatch = useDispatch()
 
 	function exitUser() {
+		console.log(JSON.parse(localStorage.getItem(user.payload.username)))
+		const obj = { username: user.payload.username, password: user.payload.password, history: history }
+		localStorage.setItem(user.payload.username, JSON.stringify(obj))
+		dispatch(removeHistory())
 		dispatch(logoutAction())
 		navigate('/')
 	}

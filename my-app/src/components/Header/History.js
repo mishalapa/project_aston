@@ -8,7 +8,7 @@ import '../../App.css'
 export const History = () => {
 	const history = useSelector((state) => state.movies.history)
 	const navigate = useNavigate()
-	const text = history.split(',')
+	const text = history.slice(1).split(',')
 
 	function openSearchFilm(e) {
 		navigate(`/search/${e.target.textContent}`)
@@ -31,3 +31,7 @@ export const History = () => {
 		</div>
 	)
 }
+// const user = useSelector((state) => state.login.user)
+// const history = JSON.parse(localStorage.getItem(user.payload.username)).history
+// const navigate = useNavigate()
+// const text = history.split(',')

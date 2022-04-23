@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { loginAction } from '../../redux'
+import { loadingHistory } from '../../redux/moviesSlice'
 
 export const Login = () => {
 	const dispatch = useDispatch()
@@ -14,6 +15,7 @@ export const Login = () => {
 
 	const onSubmit = (identification) => {
 		const user = localStorage.getItem(identification.username)
+
 		if (!user) {
 			setFormPropsUser({ validateStatus: 'error', help: 'User not registered' })
 		} else if (user && JSON.parse(user).password != identification.password) {
@@ -22,6 +24,7 @@ export const Login = () => {
 			JSON.parse(user).username === identification.username &&
 			JSON.parse(user).password === identification.password
 		) {
+			dispatch(loadingHistory(JSON.parse(user).history))
 			dispatch(loginAction(identification))
 			navigate('/')
 		} else {

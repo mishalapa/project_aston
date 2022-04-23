@@ -5,14 +5,14 @@ export const fetchMovies = createAsyncThunk('movies/fetchMovies', async function
 	const response = await axios.get(
 		`https://api.simkl.com/search/movie?q=${
 			value ? value : ''
-		}&client_id=5892c4006298023ae6d06488f20e27d41fd08ae18055ab42d5bd76b80318ab7d`
+		}&client_id=0645e851765e9feedbf2661bd5ec586768f4ff37d84513291536bfe8e1ba2256`
 	)
 	return response.data
 })
 
 export const fetchMovie = createAsyncThunk('movies/fetchMovie', async function (simkl_id) {
 	const response = await axios.get(
-		`https://api.simkl.com/movies/${simkl_id}?client_id=5892c4006298023ae6d06488f20e27d41fd08ae18055ab42d5bd76b80318ab7d&extended=full`
+		`https://api.simkl.com/movies/${simkl_id}?client_id=0645e851765e9feedbf2661bd5ec586768f4ff37d84513291536bfe8e1ba2256&extended=full`
 	)
 
 	return response.data
@@ -31,10 +31,27 @@ const moviesSlice = createSlice({
 	initialState,
 	reducers: {
 		addFavorites: (state, action) => {
-			state.favorites = action.payload
+			state.favorites = [...state.favorites, action.payload]
+		},
+		toggleFavourite: (state, action) => {
+			if (state.favorites.includes(action.payload)) {
+				console.log('2')
+				state.favorites = state.favorites.filter((movieId) => movieId !== action.payload)
+				return
+			}
+			if (!state.favorites.includes(action.payload)) {
+				console.log('1')
+				state.favorites = [...state.favorites, action.payload]
+			}
 		},
 		addHistory: (state, action) => {
 			state.history = state.history + ',' + action.payload
+		},
+		removeHistory: (state) => {
+			state.history = ''
+		},
+		loadingHistory: (state, action) => {
+			state.history = action.payload
 		},
 	},
 	extraReducers: {
@@ -65,5 +82,5 @@ const moviesSlice = createSlice({
 	},
 })
 
-export const { addFavorites, addHistory } = moviesSlice.actions
+export const { addFavorites, addHistory, removeHistory, loadingHistory, toggleFavourite } = moviesSlice.actions
 export const moviesReducer = moviesSlice.reducer

@@ -1,15 +1,23 @@
 import { Form, Input, Button } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { loginAction } from '../../redux'
 
 export const Registration = () => {
+	const [formPropsUser, setFormPropsUser] = useState({})
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
 	const onSubmit = (identification) => {
+		const user = localStorage.getItem(identification.username)
+		if (user) {
+			setFormPropsUser({ validateStatus: 'error', help: 'This username is taken' })
+			return
+		}
+
+		identification.history = ''
 		localStorage.setItem(identification.username, JSON.stringify(identification))
 		dispatch(loginAction(identification))
 		navigate('/')
@@ -25,7 +33,12 @@ export const Registration = () => {
 				autoComplete='off'
 				className='form__reg'
 			>
-				<Form.Item label='Username' name='username' rules={[{ required: true, message: 'Please input your username!' }]}>
+				<Form.Item
+					{...formPropsUser}
+					label='Username'
+					name='username'
+					rules={[{ required: true, message: 'Please input your username!' }]}
+				>
 					<Input />
 				</Form.Item>
 
