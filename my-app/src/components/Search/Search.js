@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { addHistory, fetchMovies } from '../../redux'
+import { addHistory } from '../../redux'
 import './search.css'
-import { MovieList } from '../Main'
+import MovieList from '../Main/MovieList'
+import { debounce } from '../../utility'
+import { useGetMoviesQuery } from '../../redux/movieApi'
 
 export const Search = () => {
-	const { id } = useParams()
-	const [value, setValue] = useState(id)
+	const { id = '' } = useParams()
 	const dispatch = useDispatch()
-	const movies = useSelector((state) => state.movies.movies)
 	const navigate = useNavigate()
 
-	useEffect(() => {
-		dispatch(fetchMovies(value))
-	}, [value])
+	const [value, setValue] = useState(id)
+	const { data = [] } = useGetMoviesQuery(value)
+
+	const onChange = (event) => {
+		setValue(event.target.value)
+	}
+
+	const debounceOnChange = useCallback(debounce(onChange), [])
 
 	const onSubmit = () => {
 		dispatch(addHistory(value))
@@ -29,14 +34,13 @@ export const Search = () => {
 				<input
 					className='searchForm__input'
 					type='text'
-					value={value}
 					placeholder='Название фильма или сериала'
-					onChange={(event) => setValue(event.target.value)}
+					onChange={debounceOnChange}
 				/>
 			</form>
 			<div className='movie__list'>
-				{movies.length > 0 ? (
-					movies.map((movie, index) => {
+				{data && data.length > 0 ? (
+					data.map((movie, index) => {
 						return <MovieList movie={movie} key={index} />
 					})
 				) : (

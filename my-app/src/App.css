@@ -9,12 +9,15 @@
     margin-right: auto;
     background-color: antiquewhite;
 }
-.header {
+.header__logo {
     height: 90px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #000000;
+}
+.header__menu {
+    display: flex;
 }
 .btn1 {
     margin-right: 25px;
@@ -55,19 +58,37 @@
     font-weight: 500;
 }
 .user {
-    margin-left: 224px;
-    margin-top: -19px;
-    margin-bottom: -3px;
-    font-size: 19px;
+    margin-bottom: 0px;
+    font-size: 20px;
     font-weight: 600;
 }
 .exit {
     margin-right: 100px;
 }
-.button__regist{
-    margin-right: 50px;
-    font-size: 20px;
-    color: #000000;
-    font-weight: 500;
+
+.clear__history {
+    position: relative;
+    left: 50%;
+    top: 10px;
+}
+.not__history {
+    text-align: center;
+    font-size: 40px;
+}
+.ant-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    color: rgba(0, 0, 0, 0.85);
+    margin-left: 44px;
 }
 
+.history-dark * {
+    background-color: rgb(0, 0, 0);
+    color: #ffffff
+}
+
+.history-light {
+    background-color: rgb(255, 255, 255);
+}

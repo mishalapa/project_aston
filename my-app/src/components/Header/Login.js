@@ -4,12 +4,12 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { loginAction } from '../../redux'
-import { loadingHistory } from '../../redux/moviesSlice'
+import { loginAction, loadingHistory, loadingFavorite } from '../../redux'
 
 export const Login = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+
 	const [formPropsUser, setFormPropsUser] = useState({})
 	const [formPropsPassword, setFormPropsPassword] = useState({})
 
@@ -25,6 +25,7 @@ export const Login = () => {
 			JSON.parse(user).password === identification.password
 		) {
 			dispatch(loadingHistory(JSON.parse(user).history))
+			dispatch(loadingFavorite(JSON.parse(user).favorites))
 			dispatch(loginAction(identification))
 			navigate('/')
 		} else {
