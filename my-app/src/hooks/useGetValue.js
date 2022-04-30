@@ -6,20 +6,24 @@ const user = 'user'
 const isLogin = 'isLogin'
 
 export const useGetValue = (item) => {
-	if (item == favorites) {
-		const data = useSelector((state) => state.movies.favorites)
-		return data
-	}
-	if (item == history) {
-		const data = useSelector((state) => state.movies.history)
-		return data
-	}
-	if (item == isLogin) {
-		const data = useSelector((state) => state.login.isLogin)
-		return data
-	}
-	if (item == user) {
-		const data = useSelector((state) => state.login.user)
-		return data
+	switch (item) {
+		case favorites: {
+			const data = useSelector((state) => state.movies.favorites)
+			return data
+		}
+		case history: {
+			const data = useSelector((state) => state.movies.history)
+			return data
+		}
+		case isLogin: {
+			const data = useSelector((state) => state.login.isLogin)
+			return data
+		}
+		case user: {
+			const data = useSelector((state) => state.login.user)
+			return data
+		}
+		default:
+			alert('not action')
 	}
 }

@@ -5,8 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import { moviesReducer } from './moviesSlice'
 import loginSlice from './loginSlice'
 import { movieApi } from '.'
-
-import typeAndTime from './middleware/typeAndTime'
+import { typeAndTime } from './middleware/typeAndTime'
 
 const rootReducer = combineReducers({
 	login: loginSlice,

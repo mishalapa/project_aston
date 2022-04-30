@@ -1,5 +1,6 @@
-import { Form, Input, Button } from 'antd'
 import React, { useState } from 'react'
+
+import { Form, Input, Button } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -36,7 +37,7 @@ export const Registration = () => {
 				wrapperCol={{ span: 16 }}
 				onFinish={onSubmit}
 				autoComplete='off'
-				className='form__reg'
+				className='login__form'
 			>
 				<Form.Item
 					{...formPropsUser}

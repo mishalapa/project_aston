@@ -1,10 +1,12 @@
 import React, { useCallback, useState } from 'react'
+
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { addHistory } from '../../redux'
 import { useGetMoviesQuery } from '../../redux/movieApi'
 import { debounce } from '../../utility'
+
 import './search.css'
 
 export const SearchNow = () => {
@@ -38,17 +40,15 @@ export const SearchNow = () => {
 					Search
 				</button>
 				<ul className='autocomplete'>
-					{data && data.length > 0 ? (
-						data.map((movie, index) => {
-							return (
-								<li className='autocomplete__item' key={index} onClick={itemClickHandler}>
-									{movie.title}
-								</li>
-							)
-						})
-					) : (
-						<li className='autocomplete__item'>Movie not found</li>
-					)}
+					{data.length > 0
+						? data.map((movie, id) => {
+								return (
+									<li className='autocomplete__item' key={id} onClick={itemClickHandler}>
+										{movie.title}
+									</li>
+								)
+						  })
+						: value.length > 0 && <li className='autocomplete__item'>Movie not found</li>}
 				</ul>
 			</form>
 		</div>

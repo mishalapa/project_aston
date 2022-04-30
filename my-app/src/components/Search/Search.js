@@ -1,12 +1,16 @@
 import React, { useCallback, useState } from 'react'
+
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { addHistory } from '../../redux'
-import './search.css'
 import MovieList from '../Main/MovieList'
-import { debounce } from '../../utility'
+
 import { useGetMoviesQuery } from '../../redux/movieApi'
+
+import { addHistory } from '../../redux'
+import { debounce } from '../../utility'
+
+import './search.css'
 
 export const Search = () => {
 	const { id = '' } = useParams()
@@ -39,12 +43,12 @@ export const Search = () => {
 				/>
 			</form>
 			<div className='movie__list'>
-				{data && data.length > 0 ? (
-					data.map((movie, index) => {
-						return <MovieList movie={movie} key={index} />
+				{data?.length > 0 ? (
+					data.map((movie, id) => {
+						return <MovieList movie={movie} key={id} />
 					})
 				) : (
-					<p style={{ fontSize: '50px' }}>Movie not found</p>
+					<p className='movie__not-found'>Movie not found</p>
 				)}
 			</div>
 		</div>

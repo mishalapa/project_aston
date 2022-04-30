@@ -1,11 +1,14 @@
-import { List, Divider, Button } from 'antd'
 import React, { useContext } from 'react'
+
+import { List, Divider, Button } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { useGetValue } from '../../hooks'
-import { removeHistory } from '../../redux'
 import { DarkModeContext } from '../Context/darkModeContext'
+
+import { useGetValue } from '../../hooks'
+
+import { removeHistory } from '../../redux'
 
 export const History = () => {
 	const navigate = useNavigate()
@@ -29,7 +32,7 @@ export const History = () => {
 
 	return (
 		<div className={darkMode ? 'history-dark' : 'history-light'}>
-			{history && history.length > 0 ? (
+			{history?.length > 0 ? (
 				<div>
 					<Button className='clear__history' onClick={clearHistory}>
 						Clear History

@@ -2,7 +2,7 @@ import { createContext, useState } from 'react'
 
 const defaultState = {
 	darkMode: false,
-	toggleDarkMode: () => console.log(),
+	toggleDarkMode: (value) => console.log(value),
 }
 const DarkModeContext = createContext(defaultState)
 

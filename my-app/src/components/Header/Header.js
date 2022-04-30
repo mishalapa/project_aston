@@ -1,11 +1,14 @@
-import { Button } from 'antd'
 import React from 'react'
+
+import { Button } from 'antd'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useGetValue } from '../../hooks'
-import logo from '../../image/video.png'
+
 import { logoutAction, removeFavorite, removeHistory } from '../../redux'
+
+import logo from '../../image/video.png'
 
 export const Header = () => {
 	const navigate = useNavigate()

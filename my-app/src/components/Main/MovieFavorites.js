@@ -1,11 +1,13 @@
+import React, { useState } from 'react'
+
 import { Button, Card } from 'antd'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { useGetValue } from '../../hooks'
+
 import { toggleFavourite } from '../../redux'
 
 const { Meta } = Card
@@ -30,8 +32,8 @@ const MovieFavorites = (movie) => {
 
 	return (
 		<div className='movie__item'>
-			<Card hoverable style={{ width: 152 }} cover={<img className='card__image' alt='example' src={image} />}>
-				<Meta style={{ fontSize: '16px', textAlign: 'center' }} title={movie.movie.title} description={movie.movie.year} />
+			<Card hoverable className='movie__wrapper' cover={<img className='card__image' alt='example' src={image} />}>
+				<Meta className='movie__title' title={movie.movie.title} description={movie.movie.year} />
 				<div className='movie__favorites'>
 					<Button onClick={openFilm}>Подробнее</Button>
 					{like ? (

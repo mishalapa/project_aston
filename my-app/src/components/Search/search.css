@@ -1,3 +1,9 @@
+:root {
+  --black: rgb(0, 0, 0);
+  --white: rgb(255, 255, 255);
+  --grey: rgb(184, 184, 184);
+}
+
 .searchPanel {
   margin: 0 auto;
   width: 820px;
@@ -8,7 +14,7 @@
 }
 
 .searchPanel h1 {
-  color: rgb(0, 0, 0);
+  color: var(--black);
 }
 .searchForm {
   margin: 0 auto;
@@ -18,9 +24,9 @@
 .autocomplete {
   position:absolute;
   left: 0;
-  top: 35px;
-  width: 80.5%;
-  background-color: #ffffff;
+  top: 34px;
+  width: 80.2%;
+  background-color: var(--white);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -28,37 +34,36 @@
   max-height: 240px;
   overflow: auto;
   height: auto;
+  border: 1px solid var(--black);
 }
 .autocomplete__item {
   padding: 10px;
 }
 .autocomplete__item:hover {
-  background-color: #b8b8b8;
+  background-color: var(--grey);
   cursor: pointer;
   transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s all;
 }
 .searchForm__input {
   width: 430px;
   height: 35px;
-  border-radius: 5px;
-  border-color: rgb(0, 0, 0);
-  border-width: 1px;
+  border-color: var(--black);
+  border-width: 2px;
   padding-left: 10px;
 }
-
 .searchForm button {
   margin: 0px auto 0 5px;
   width: 100px;
   height: 35px;
   border: 0;
   border-radius: 5px;
-  background: rgb(0, 0, 0);
-  color: #fff;
+  background:  var(--black);
+  color: var(--white);
   font-size: 16px;
 }
 
 .searchForm button:hover {
-  background-color: rgb(0, 0, 0);
+  background-color:  var(--black);
   transform: scale(1.05);
 }
 
@@ -90,7 +95,7 @@
 
 .ant-card-meta-title {
   overflow: hidden;
-  color: rgb(0 0 0 / 78%);
+  color: rgba(0, 0, 0, 0.78);
   font-weight: 500;
   font-size: 16px;
   text-overflow: ellipsis;
@@ -99,7 +104,7 @@
 }
 
 .ant-card-bordered {
- border: 2px solid #000000;
+ border: 2px solid  var(--black);
 }
 
 .ant-card-meta-detail > div:not(:last-child) {
@@ -118,3 +123,6 @@ button, html [type="button"], [type="reset"], [type="submit"] {
   transform: translate(-7px, 1px);
 }
 
+.movie__not-found {
+  font-size: 50px;
+}

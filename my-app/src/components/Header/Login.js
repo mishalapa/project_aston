@@ -1,6 +1,7 @@
+import { useState } from 'react'
+
 import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -29,7 +30,7 @@ export const Login = () => {
 			dispatch(loginAction(identification))
 			navigate('/')
 		} else {
-			console.log('Error', identification)
+			console.log('Something went wrong', identification)
 		}
 	}
 

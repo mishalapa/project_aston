@@ -1,6 +1,4 @@
-const typeAndTime = () => (next) => (action) => {
+export const typeAndTime = () => (next) => (action) => {
 	console.log(new Date().toLocaleTimeString(), action.type)
 	next(action)
 }
-
-export default typeAndTime

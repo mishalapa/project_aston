@@ -14,6 +14,7 @@ const MovieList = (movie) => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const favorites = useGetValue('favorites')
+	const isLogin = useGetValue('isLogin')
 
 	const image = `https://simkl.in/posters/${movie.movie.poster}_m.jpg`
 
@@ -30,15 +31,14 @@ const MovieList = (movie) => {
 
 	return (
 		<div className='movie__item'>
-			<Card hoverable style={{ width: 152 }} cover={<img className='card__image' alt='example' src={image} />}>
-				<Meta style={{ fontSize: '16px', textAlign: 'center' }} title={movie.movie.title} description={movie.movie.year} />
+			<Card hoverable className='movie__wrapper' cover={<img className='card__image' alt='example' src={image} />}>
+				<Meta className='movie__title' title={movie.movie.title} description={movie.movie.year} />
 				<div className='movie__favorites'>
 					<Button onClick={openFilm}>Подробнее</Button>
-					{like ? (
-						<AiTwotoneHeart onClick={toogle} transform={'scale(2)'} />
-					) : (
-						<AiOutlineHeart onClick={toogle} transform={'scale(1.8)'} />
-					)}
+
+					{like
+						? isLogin && <AiTwotoneHeart onClick={toogle} transform={'scale(2)'} />
+						: isLogin && <AiOutlineHeart onClick={toogle} transform={'scale(1.8)'} />}
 				</div>
 			</Card>
 		</div>
