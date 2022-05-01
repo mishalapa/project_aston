@@ -1,10 +1,10 @@
 import axios from 'axios'
 
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
+
 export const fetchFavorites = (setFunction, ids) => {
 	const data = ids.map((simkl) =>
-		axios.get(
-			`https://api.simkl.com/movies/${simkl}?client_id=5892c4006298023ae6d06488f20e27d41fd08ae18055ab42d5bd76b80318ab7d&extended=full`
-		)
+		axios.get(`https://api.simkl.com/movies/${simkl}?client_id=${CLIENT_ID}&extended=full`)
 	)
 
 	Promise.all(data).then((response) => {
