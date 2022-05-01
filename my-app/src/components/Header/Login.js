@@ -1,19 +1,22 @@
+import { useState } from 'react'
+
 import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { loginAction } from '../../redux'
+import { loginAction, loadingHistory, loadingFavorite } from '../../redux'
 
 export const Login = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+
 	const [formPropsUser, setFormPropsUser] = useState({})
 	const [formPropsPassword, setFormPropsPassword] = useState({})
 
 	const onSubmit = (identification) => {
 		const user = localStorage.getItem(identification.username)
+
 		if (!user) {
 			setFormPropsUser({ validateStatus: 'error', help: 'User not registered' })
 		} else if (user && JSON.parse(user).password != identification.password) {
@@ -22,10 +25,12 @@ export const Login = () => {
 			JSON.parse(user).username === identification.username &&
 			JSON.parse(user).password === identification.password
 		) {
+			dispatch(loadingHistory(JSON.parse(user).history))
+			dispatch(loadingFavorite(JSON.parse(user).favorites))
 			dispatch(loginAction(identification))
 			navigate('/')
 		} else {
-			console.log('Error', identification)
+			console.log('Something went wrong', identification)
 		}
 	}
 

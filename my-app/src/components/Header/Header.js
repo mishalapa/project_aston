@@ -1,34 +1,54 @@
-import { Button } from 'antd'
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+
+import { Button } from 'antd'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { useGetValue } from '../../hooks'
+
+import { logoutAction, removeFavorite, removeHistory } from '../../redux'
+
 import logo from '../../image/video.png'
-import { logoutAction } from '../../redux'
 
 export const Header = () => {
 	const navigate = useNavigate()
-	const isLogin = useSelector((state) => state.login.isLogin)
-	const user = useSelector((state) => state.login.user)
 	const dispatch = useDispatch()
 
+	const isLogin = useGetValue('isLogin')
+	const user = useGetValue('user')
+	const history = useGetValue('history')
+	const favorites = useGetValue('favorites')
+
 	function exitUser() {
+		const data = {
+			username: user.payload.username,
+			password: user.payload.password,
+			history: history,
+			favorites: favorites,
+		}
+
+		localStorage.setItem(user.payload.username, JSON.stringify(data))
+
+		dispatch(removeHistory())
+		dispatch(removeFavorite())
 		dispatch(logoutAction())
+
 		navigate('/')
 	}
+
 	function toFavorites() {
 		navigate('/favorites')
 	}
 
 	return (
 		<header className='container'>
-			<div className='header'>
+			<div className='header__logo'>
 				<Link to='/' className='logo'>
 					<img src={logo} className='logo__photo' />
 					<div className='logo__text'>MovieSearch</div>
 				</Link>
 
-				<div>
+				<div className='header__menu'>
 					{isLogin ? (
 						<>
 							<p className='user'>user:{user.payload.username}</p>

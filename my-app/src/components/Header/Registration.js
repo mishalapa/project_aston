@@ -1,5 +1,6 @@
+import React, { useState } from 'react'
+
 import { Form, Input, Button } from 'antd'
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -9,8 +10,21 @@ export const Registration = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
+	const [formPropsUser, setFormPropsUser] = useState({})
+
 	const onSubmit = (identification) => {
+		const user = localStorage.getItem(identification.username)
+
+		if (user) {
+			setFormPropsUser({ validateStatus: 'error', help: 'This username is taken' })
+			return
+		}
+
+		identification.history = ''
+		identification.favorites = []
+
 		localStorage.setItem(identification.username, JSON.stringify(identification))
+
 		dispatch(loginAction(identification))
 		navigate('/')
 	}
@@ -23,9 +37,14 @@ export const Registration = () => {
 				wrapperCol={{ span: 16 }}
 				onFinish={onSubmit}
 				autoComplete='off'
-				className='form__reg'
+				className='login__form'
 			>
-				<Form.Item label='Username' name='username' rules={[{ required: true, message: 'Please input your username!' }]}>
+				<Form.Item
+					{...formPropsUser}
+					label='Username'
+					name='username'
+					rules={[{ required: true, message: 'Please input your username!' }]}
+				>
 					<Input />
 				</Form.Item>
 

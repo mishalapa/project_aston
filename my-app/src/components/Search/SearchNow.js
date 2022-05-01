@@ -1,29 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { addHistory, fetchMovies } from '../../redux'
+import React, { useCallback, useState } from 'react'
 
-import './Search.css'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import { addHistory } from '../../redux'
+import { useGetMoviesQuery } from '../../redux/movieApi'
+import { debounce } from '../../utility'
+
+import './search.css'
 
 export const SearchNow = () => {
-	const [value, setValue] = useState('')
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const movies = useSelector((state) => state.movies.movies)
 
-	useEffect(() => {
-		dispatch(fetchMovies(value))
-	}, [value])
+	const [value, setValue] = useState('')
+	const { data = [] } = useGetMoviesQuery(value)
 
 	const onSubmit = () => {
 		dispatch(addHistory(value))
 		navigate(`/search/${value}`)
 	}
 
+	const onChange = (event) => setValue(event.target.value)
+
+	const debounceOnChange = useCallback(debounce(onChange), [])
+
 	const itemClickHandler = (e) => {
 		dispatch(addHistory(e.target.textContent))
-		dispatch(fetchMovies(e.target.textContent))
-		const result = movies.filter((el) => el.title === e.target.textContent)
+		const result = data.filter((el) => el.title === e.target.textContent)
 		navigate(`/movies/${result[0].ids.simkl_id}`)
 	}
 
@@ -31,28 +35,20 @@ export const SearchNow = () => {
 		<div className='searchPanel'>
 			<h1>Поиск фильмов...</h1>
 			<form className='searchForm' onSubmit={onSubmit}>
-				<input
-					className='searchForm__input'
-					type='text'
-					value={value}
-					placeholder='Название фильма или сериала'
-					onChange={(event) => setValue(event.target.value)}
-				/>
+				<input className='searchForm__input' type='text' placeholder='Movie name' onChange={debounceOnChange} />
 				<button type='text' onClick={onSubmit}>
 					Search
 				</button>
 				<ul className='autocomplete'>
-					{movies && movies.length > 0 ? (
-						movies.map((movie, index) => {
-							return (
-								<li className='autocomplete__item' key={index} onClick={itemClickHandler}>
-									{movie.title}
-								</li>
-							)
-						})
-					) : (
-						<li className='autocomplete__item'>Movie not found</li>
-					)}
+					{data.length > 0
+						? data.map((movie, id) => {
+								return (
+									<li className='autocomplete__item' key={id} onClick={itemClickHandler}>
+										{movie.title}
+									</li>
+								)
+						  })
+						: value.length > 0 && <li className='autocomplete__item'>Movie not found</li>}
 				</ul>
 			</form>
 		</div>

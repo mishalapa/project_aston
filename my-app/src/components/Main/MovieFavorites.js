@@ -1,32 +1,33 @@
+import React, { useState } from 'react'
+
 import { Button, Card } from 'antd'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { useGetValue } from '../../hooks'
+
 import { toggleFavourite } from '../../redux'
 
 const { Meta } = Card
 
-const MovieList = (movie) => {
+const MovieFavorites = (movie) => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
-	const favorites = useGetValue('favorites')
-	const isLogin = useGetValue('isLogin')
 
 	const image = `https://simkl.in/posters/${movie.movie.poster}_m.jpg`
+	const favorites = useGetValue('favorites')
 
-	const [like, setLike] = useState(favorites.includes(movie.movie.ids.simkl_id))
+	const [like, setLike] = useState(favorites.includes(movie.movie.simkl_id))
 
 	function openFilm() {
-		navigate(`/movies/${movie.movie.ids.simkl_id}`)
+		navigate(`/movies/${movie.movie.simkl_id}`)
 	}
 
 	function toogle() {
 		setLike(!like)
-		dispatch(toggleFavourite(movie.movie.ids.simkl_id))
+		dispatch(toggleFavourite(movie.movie.simkl_id))
 	}
 
 	return (
@@ -35,18 +36,19 @@ const MovieList = (movie) => {
 				<Meta className='movie__title' title={movie.movie.title} description={movie.movie.year} />
 				<div className='movie__favorites'>
 					<Button onClick={openFilm}>Подробнее</Button>
-
-					{like
-						? isLogin && <AiTwotoneHeart onClick={toogle} transform={'scale(2)'} />
-						: isLogin && <AiOutlineHeart onClick={toogle} transform={'scale(1.8)'} />}
+					{like ? (
+						<AiTwotoneHeart onClick={toogle} transform={'scale(2)'} />
+					) : (
+						<AiOutlineHeart onClick={toogle} transform={'scale(1.8)'} />
+					)}
 				</div>
 			</Card>
 		</div>
 	)
 }
 
-MovieList.propTypes = {
+MovieFavorites.propTypes = {
 	movie: PropTypes.object,
 }
 
-export default MovieList
+export default MovieFavorites

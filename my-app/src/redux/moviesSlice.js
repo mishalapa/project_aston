@@ -1,29 +1,8 @@
-import axios from 'axios'
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
-export const fetchMovies = createAsyncThunk('movies/fetchMovies', async function (value) {
-	const response = await axios.get(
-		`https://api.simkl.com/search/movie?q=${
-			value ? value : ''
-		}&client_id=5892c4006298023ae6d06488f20e27d41fd08ae18055ab42d5bd76b80318ab7d`
-	)
-	return response.data
-})
-
-export const fetchMovie = createAsyncThunk('movies/fetchMovie', async function (simkl_id) {
-	const response = await axios.get(
-		`https://api.simkl.com/movies/${simkl_id}?client_id=5892c4006298023ae6d06488f20e27d41fd08ae18055ab42d5bd76b80318ab7d&extended=full`
-	)
-
-	return response.data
-})
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	movies: [],
 	favorites: [],
 	history: '',
-	error: null,
-	status: '',
 }
 
 const moviesSlice = createSlice({
@@ -31,39 +10,43 @@ const moviesSlice = createSlice({
 	initialState,
 	reducers: {
 		addFavorites: (state, action) => {
-			state.favorites = action.payload
+			state.favorites = [...state.favorites, action.payload]
+		},
+		toggleFavourite: (state, action) => {
+			if (state.favorites.includes(action.payload)) {
+				state.favorites = state.favorites.filter((movieId) => movieId !== action.payload)
+				return
+			}
+			if (!state.favorites.includes(action.payload)) {
+				state.favorites = [...state.favorites, action.payload]
+			}
 		},
 		addHistory: (state, action) => {
 			state.history = state.history + ',' + action.payload
 		},
-	},
-	extraReducers: {
-		[fetchMovies.pending]: (state) => {
-			state.status = 'loading'
-			state.error = null
+		removeHistory: (state) => {
+			state.history = ''
 		},
-		[fetchMovies.fulfilled]: (state, action) => {
-			state.movies = action.payload
-			state.status = 'fulfilled'
+		removeFavorite: (state) => {
+			state.favorites = []
 		},
-		[fetchMovies.rejected]: (state, action) => {
-			state.error = action.payload
-			state.status = 'rejected'
+		loadingHistory: (state, action) => {
+			state.history = action.payload
 		},
-		[fetchMovie.pending]: (state) => {
-			state.status = 'loading'
-			state.error = null
-		},
-		[fetchMovie.fulfilled]: (state, action) => {
-			state.movies = action.payload
-			state.status = 'fulfilled'
-		},
-		[fetchMovie.rejected]: (state, action) => {
-			state.error = action.payload
-			state.status = 'rejected'
+		loadingFavorite: (state, action) => {
+			state.favorites = action.payload
 		},
 	},
 })
 
-export const { addFavorites, addHistory } = moviesSlice.actions
+export const {
+	addFavorites,
+	addHistory,
+	removeHistory,
+	loadingHistory,
+	toggleFavourite,
+	removeFavorite,
+	loadingFavorite,
+} = moviesSlice.actions
+
 export const moviesReducer = moviesSlice.reducer

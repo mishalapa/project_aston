@@ -1,3 +1,7 @@
+:root {
+  --black: rgb(0, 0, 0);
+}
+
 .movie__card {
   max-width: 800px;
   height: 73vh;
@@ -5,28 +9,40 @@
   transform: translate(-50%, 9%);
   display: flex;
 }
+
 .movie__poster {
-  border: 1px solid #000000;
+  border: 1px solid var(--black);
   margin: 5px;
-  width: auto;
-  max-width: 342px;
+  width: 342px;
+  height: 515px;
 }
+
 .movie__overview .ant-card-meta-detail .ant-card-meta-title {
   max-width: 433px;
   height: 225px;
 }
-.movie__favorites .favorites__icon {
+
+/* .movie__favorites .favorites__icon {
   width: 100px;
-}
+} */
+
 .movie__card .favorites__icon {
   width: 100px;
   transform: translate(24vh, 0%);
 }
-.favorites__icon:hover * {
-  fill: #ff0000;
-  background-color: #000000;
-}
+
 .card__image {
   height: 215px;
 }
 
+.heart {
+  transform: scale(8.5) translate(3.5vh, 5px);
+}
+
+.movie__title {
+  font-size: 16px;
+  text-align: center;
+}
+.movie__wrapper {
+  width: 152px;
+}

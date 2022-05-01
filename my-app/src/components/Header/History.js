@@ -1,22 +1,45 @@
-import { List, Divider } from 'antd'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useContext } from 'react'
+
+import { List, Divider, Button } from 'antd'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import '../../App.css'
+import { DarkModeContext } from '../Context/darkModeContext'
+
+import { useGetValue } from '../../hooks'
+
+import { removeHistory } from '../../redux'
 
 export const History = () => {
-	const history = useSelector((state) => state.movies.history)
 	const navigate = useNavigate()
-	const text = history.split(',')
+	const dispatch = useDispatch()
+	const { darkMode, toggleDarkMode } = useContext(DarkModeContext)
+
+	const history = useGetValue('history')
+	const text = history.slice(1).split(',')
 
 	function openSearchFilm(e) {
 		navigate(`/search/${e.target.textContent}`)
 	}
+
+	function clearHistory() {
+		dispatch(removeHistory())
+	}
+
+	function changeColor() {
+		toggleDarkMode()
+	}
+
 	return (
-		<div>
-			{history && history.length > 0 ? (
+		<div className={darkMode ? 'history-dark' : 'history-light'}>
+			{history?.length > 0 ? (
 				<div>
+					<Button className='clear__history' onClick={clearHistory}>
+						Clear History
+					</Button>
+					<Button className='clear__history' onClick={changeColor}>
+						ChangeColor
+					</Button>
 					<Divider orientation='left'>Query List</Divider>
 					<List
 						size='large'
@@ -26,7 +49,7 @@ export const History = () => {
 					/>
 				</div>
 			) : (
-				<p>You did not ask</p>
+				<p className='not__history'>You did not search for anything</p>
 			)}
 		</div>
 	)
