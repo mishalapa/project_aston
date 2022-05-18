@@ -40,7 +40,6 @@ export const Header = () => {
 
 	return (
 		<header className='container'>
-			<p>xyi</p>
 			<div className='header__logo'>
 				<Link to='/' className='logo'>
 					<img src={logo} className='logo__photo' />
