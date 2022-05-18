@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/project_aston/static/css/main.14388719.css",
+    "main.js": "/project_aston/static/js/main.7cfda528.js",
+    "index.html": "/project_aston/index.html",
+    "main.14388719.css.map": "/project_aston/static/css/main.14388719.css.map",
+    "main.7cfda528.js.map": "/project_aston/static/js/main.7cfda528.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.14388719.css",
+    "static/js/main.7cfda528.js"
+  ]
+}
