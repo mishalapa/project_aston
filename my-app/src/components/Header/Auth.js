@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Navigate } from 'react-router-dom'
 
 import { useGetValue } from '../../hooks/useGetValue'

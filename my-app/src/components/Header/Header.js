@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Button } from 'antd'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
@@ -18,7 +16,7 @@ export const Header = () => {
 	const user = useGetValue('user')
 	const history = useGetValue('history')
 	const favorites = useGetValue('favorites')
-
+	console.log(isLogin, favorites, history)
 	function exitUser() {
 		const data = {
 			username: user.payload.username,
@@ -42,6 +40,7 @@ export const Header = () => {
 
 	return (
 		<header className='container'>
+			<p>xyi</p>
 			<div className='header__logo'>
 				<Link to='/' className='logo'>
 					<img src={logo} className='logo__photo' />

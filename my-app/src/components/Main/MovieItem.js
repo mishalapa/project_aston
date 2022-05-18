@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Card } from 'antd'
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai'
@@ -18,6 +18,7 @@ export const MovieItem = () => {
 	const { simkl_id } = useParams()
 	const dispatch = useDispatch()
 	const favorites = useGetValue('favorites')
+	const isLogin = useGetValue('isLogin')
 
 	const { data = {} } = useGetMovieQuery(simkl_id)
 
@@ -33,11 +34,9 @@ export const MovieItem = () => {
 			<Meta title={'Title: ' + data.title} />
 			<Meta title={'Year: ' + data.year} />
 			<Meta className='movie__overview' title={'Overview: ' + data.overview} />
-			{like ? (
-				<AiTwotoneHeart onClick={toogle} className='heart' />
-			) : (
-				<AiOutlineHeart onClick={toogle} className='heart' />
-			)}
+			{like
+				? isLogin && <AiTwotoneHeart onClick={toogle} className='heart' />
+				: isLogin && <AiOutlineHeart onClick={toogle} className='heart' />}
 		</Card>
 	)
 }

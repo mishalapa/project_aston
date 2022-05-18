@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { fetchFavorites } from '../../redux'
 import MovieFavorites from '../Main/MovieFavorites'

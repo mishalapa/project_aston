@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
