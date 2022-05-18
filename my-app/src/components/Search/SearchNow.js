@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useGetValue } from '../../hooks'
 
 import { addHistory } from '../../redux'
 import { useGetMoviesQuery } from '../../redux/movieApi'
@@ -15,9 +16,12 @@ export const SearchNow = () => {
 
 	const [value, setValue] = useState('')
 	const { data = [] } = useGetMoviesQuery(value)
+	const isLogin = useGetValue('isLogin')
 
 	const onSubmit = () => {
-		dispatch(addHistory(value))
+		if (isLogin) {
+			dispatch(addHistory(value))
+		}
 		navigate(`/search/${value}`)
 	}
 
@@ -26,7 +30,9 @@ export const SearchNow = () => {
 	const debounceOnChange = useCallback(debounce(onChange), [])
 
 	const itemClickHandler = (e) => {
-		dispatch(addHistory(e.target.textContent))
+		if (isLogin) {
+			dispatch(addHistory(e.target.textContent))
+		}
 		const result = data.filter((el) => el.title === e.target.textContent)
 		navigate(`/movies/${result[0].ids.simkl_id}`)
 	}

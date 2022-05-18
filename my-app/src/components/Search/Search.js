@@ -11,6 +11,7 @@ import { addHistory } from '../../redux'
 import { debounce } from '../../utility'
 
 import './search.css'
+import { useGetValue } from '../../hooks'
 
 export const Search = () => {
 	const { id = '' } = useParams()
@@ -19,6 +20,7 @@ export const Search = () => {
 
 	const [value, setValue] = useState(id)
 	const { data = [] } = useGetMoviesQuery(value)
+	const isLogin = useGetValue('isLogin')
 
 	const onChange = (event) => {
 		setValue(event.target.value)
@@ -27,7 +29,9 @@ export const Search = () => {
 	const debounceOnChange = useCallback(debounce(onChange), [])
 
 	const onSubmit = () => {
-		dispatch(addHistory(value))
+		if (isLogin) {
+			dispatch(addHistory(value))
+		}
 		navigate(`/search/${value}`)
 	}
 
