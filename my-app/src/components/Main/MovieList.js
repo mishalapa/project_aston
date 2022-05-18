@@ -18,7 +18,7 @@ const MovieList = (movie) => {
 
 	const image = `https://simkl.in/posters/${movie.movie.poster}_m.jpg`
 
-	const [like, setLike] = useState(favorites.includes(movie.movie.ids.simkl_id))
+	const [like, setLike] = useState(movie.movie.ids.simkl_id ? favorites.includes(movie.movie.ids.simkl_id) : false)
 
 	function openFilm() {
 		navigate(`/movies/${movie.movie.ids.simkl_id}`)
@@ -35,7 +35,6 @@ const MovieList = (movie) => {
 				<Meta className='movie__title' title={movie.movie.title} description={movie.movie.year} />
 				<div className='movie__favorites'>
 					<Button onClick={openFilm}>Подробнее</Button>
-
 					{like
 						? isLogin && <AiTwotoneHeart onClick={toogle} transform={'scale(2)'} />
 						: isLogin && <AiOutlineHeart onClick={toogle} transform={'scale(1.8)'} />}
